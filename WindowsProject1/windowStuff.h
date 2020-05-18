@@ -11,6 +11,42 @@
 #define ID_OPEN_MENU 0x011
 
 HMENU hMenu;
+static HWND hwndEdit;
+
+
+
+
+
+void handleEdit(HWND hWnd, LPARAM lParam) {
+
+
+    hwndEdit = CreateWindowEx(
+        0, L"EDIT",   // predefined class 
+        NULL,         // no window title 
+        WS_CHILD | WS_VISIBLE | WS_VSCROLL |
+        ES_LEFT | ES_MULTILINE | ES_AUTOVSCROLL,
+        0, 0, 0, 0,   // set size in WM_SIZE message 
+        hWnd,         // parent window 
+        NULL,   // edit control ID 
+        NULL,
+        NULL);        // pointer not needed
+
+
+    MoveWindow(hwndEdit,
+        0, 0,                  // starting x- and y-coordinates 
+        LOWORD(lParam),        // width of client area 
+        HIWORD(lParam),        // height of client area 
+        TRUE);                 // repaint window 
+
+// Add text to the window. 
+    //SendMessage(hwndEdit, WM_SETTEXT, 0, (LPARAM)lpszLatin);
+}
+
+
+
+
+
+
 
 
 
@@ -188,3 +224,56 @@ void handleButton(HWND hWnd) {
 }
 
 
+
+
+
+/*
+
+int getWindowWidth(HWND hWnd) {
+    RECT rectWindow;
+    GetWindowRect(hWnd, &rectWindow);
+    int nWidth = rectWindow.right - rectWindow.left;
+    return nWidth;
+}
+
+int getWindowHeight(HWND hWnd) {
+    RECT rectWindow;
+    GetWindowRect(hWnd, &rectWindow);
+    int nHeight = rectWindow.bottom - rectWindow.top;
+    return nHeight;
+}
+
+
+
+
+
+
+int getClientWidth(HWND hWnd) {
+    RECT windowRect, clientRect;
+    GetWindowRect(hWnd, &windowRect);
+    GetClientRect(hWnd, &clientRect);
+
+    int nWidth =  (clientRect.bottom - clientRect.top);
+    return nWidth;
+
+    //(windowRect.bottom - windowRect.top)
+}
+
+int getClientHeight(HWND hWnd) {
+    RECT windowRect, clientRect;
+    GetWindowRect(hWnd, &windowRect);
+    GetClientRect(hWnd, &clientRect);
+
+    int nHeight = (clientRect.right - clientRect.left);
+    return nHeight;
+
+    //(windowRect.right - windowRect.left)
+}
+
+
+
+
+
+MAINWIN_WIDTH - 17, MAINWIN_HEIGHT - 59
+
+*/

@@ -7,13 +7,21 @@
 #include <string.h>
 #include <tchar.h>
 using namespace std;
+
+#define MAINWIN_WIDTH 500
+#define MAINWIN_HEIGHT 400
+
 #include"windowStuff.h"
+
+
+
+
+
 
 
 #define processCallCount 0
 
-#define MAINWIN_WIDTH 500
-#define MAINWIN_HEIGHT 400
+
 
 
 HMENU hMenuMain;
@@ -143,10 +151,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_CREATE:
         OutputDebugStringW((LPCWSTR)L"WM_CREATE called....");
         handleCenterWindow(hWnd);
-        handleButton(hWnd);
+        //handleButton(hWnd);
         //handleNewWidow(hWnd);
         //handleManu(hWnd);
         handleMainMenu(hWnd, hMenuMain);
+        handleEdit(hWnd, lParam);
         break;
 
     case WM_COMMAND:
@@ -172,6 +181,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
         break;
 
+    case WM_SETFOCUS:
+        SetFocus(hwndEdit);
+        break;
+
+    case WM_SIZE:
+        MoveWindow(hwndEdit,
+            0, 0,                  // starting x- and y-coordinates 
+            LOWORD(lParam),        // width of client area 
+            HIWORD(lParam),        // height of client area 
+            TRUE);                 // repaint window 
+        break;
     case WM_GETMINMAXINFO:
         MINMAXINFO MMI;
         MMI.ptMaxSize.x = 600;
