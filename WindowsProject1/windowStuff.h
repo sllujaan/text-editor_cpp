@@ -9,12 +9,19 @@
 #define ID_TOOLS_MENU 0x2f0
 #define ID_ABOUT_MENU 0x100
 #define ID_OPEN_MENU 0x011
+#define ID_NEW_MENU 0x111
 
 HMENU hMenu;
 static HWND hwndEdit;
 
 
 
+
+
+
+void hanleNewWidow() {
+
+}
 
 
 void handleEdit(HWND hWnd, LPARAM lParam) {
@@ -106,7 +113,7 @@ void handleMainMenu(HWND hWnd, HMENU hMenuMain) {
     AppendMenu(hHelpMenu, MF_POPUP, ID_ABOUT_MENU, (LPCWSTR)L"About");
     AppendMenu(hSubFileMenu, MF_STRING, NULL, (LPCWSTR)L"Sub menu   F5");
 
-    AppendMenu(hFileMenu, MF_STRING, NULL, (LPCWSTR)L"New");
+    AppendMenu(hFileMenu, MF_STRING, ID_NEW_MENU, (LPCWSTR)L"New");
     AppendMenu(hFileMenu, MF_STRING, ID_OPEN_MENU, (LPCWSTR)L"Open");
     AppendMenu(hFileMenu, MF_POPUP, (UINT_PTR)hSubFileMenu, (LPCWSTR)L"Tools");
     AppendMenu(hFileMenu, MF_SEPARATOR, NULL, NULL);

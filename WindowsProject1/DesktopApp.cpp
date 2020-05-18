@@ -173,6 +173,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         case ID_OPEN_MENU:
             handleOpenMenu(hWnd);
             break;
+        case ID_NEW_MENU:
+            hanleNewWidow();
+            break;
         default:
             break;
         }
