@@ -102,7 +102,7 @@ void handleEdit(HWND hWnd, LPARAM lParam) {
 
 
 void handleReadFile(char* path) {
-    
+    /*
     MessageBox(
         NULL,
         (LPCWSTR)path,
@@ -112,9 +112,35 @@ void handleReadFile(char* path) {
 
 
 
+    File file;
+    string content = file.readFile((string)path);
+    const char* content_ptr = content.c_str();
 
+    OutputDebugStringW((LPWSTR)content_ptr);
 
- 
+    */
+    
+
+    File file;
+    string content = file.readFile((string)path);
+
+    //converting string to wide string.
+    wstring wstr = wstring(content.begin(), content.end());
+    
+    //converting wstring to wchar_t*
+    const wchar_t* wstr_ptr = wstr.c_str();
+
+    SetWindowText(hwndEdit, wstr_ptr);
+
+    MessageBox(
+        NULL,
+        (LPCWSTR)path,
+        (LPCWSTR)L"Path",
+        MB_OK
+    );
+
+    
+
 }
 
 
