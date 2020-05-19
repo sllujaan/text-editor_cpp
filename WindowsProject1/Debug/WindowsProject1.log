@@ -1,2 +1,5 @@
 ﻿  DesktopApp.cpp
+C:\Users\Subhan\source\repos\text-editor_cpp\WindowsProject1\windowStuff.h(5,9): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\Subhan\source\repos\text-editor_cpp\WindowsProject1\File.h(6,1): warning C4005: 'MAX_PATH': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(60): message : see previous definition of 'MAX_PATH'
   WindowsProject1.vcxproj -> C:\Users\Subhan\source\repos\text-editor_cpp\Debug\WindowsProject1.exe

@@ -2,6 +2,7 @@
 
 #include"mySample.h"
 #include <ShObjIdl.h>
+#include"File.h";
 
 
 #define BUTTON_ID_OK 0
@@ -100,11 +101,19 @@ void handleEdit(HWND hWnd, LPARAM lParam) {
 
 
 
-void handleReadFile(LPWSTR path) {
-    //fstream file;
+void handleReadFile(char* path) {
+    
+    MessageBox(
+        NULL,
+        (LPCWSTR)path,
+        (LPCWSTR)L"Path",
+        MB_OK
+    );
 
-    //converting (LPWSTR) to (string).
-   
+
+
+
+
  
 }
 
@@ -118,7 +127,7 @@ void handleOpenMenu(HWND hWnd) {
     
     OPENFILENAME ofn;
 
-    LPWSTR fileName[100];
+    char* fileName[100];
 
     ZeroMemory(&ofn, sizeof(OPENFILENAME));
 
@@ -132,14 +141,9 @@ void handleOpenMenu(HWND hWnd) {
 
     GetOpenFileName(&ofn);
 
-    MessageBox(
-        hWnd,
-        ofn.lpstrFile,
-        (LPCWSTR)L"Path",
-        MB_OK
-    );
+    
 
-    handleReadFile(ofn.lpstrFile);
+    handleReadFile((char*)ofn.lpstrFile);
 
 
 }

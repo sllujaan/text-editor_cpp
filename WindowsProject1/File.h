@@ -1,8 +1,7 @@
 #pragma once
-//#include<iostream>
+
 #include<fstream>
-//#include<stdlib.h>
-using namespace std;
+#include<string>
 
 #define MAX_PATH 100
 
