@@ -3,6 +3,7 @@
 #include"mySample.h"
 #include <ShObjIdl.h>
 
+
 #define BUTTON_ID_OK 0
 #define ID_FILE_MENU 1
 #define ID_EXIT_MENU 0x1df
@@ -10,9 +11,57 @@
 #define ID_ABOUT_MENU 0x100
 #define ID_OPEN_MENU 0x011
 #define ID_NEW_MENU 0x111
+#define ID_SAVEAS_MENU 0x992
+#define ID_SAVE_MENU 0x998
 
 HMENU hMenu;
 static HWND hwndEdit;
+
+
+
+void hanleSaveText(HWND hWnd) {
+    OPENFILENAME ofn;
+
+    LPWSTR fileName[100];
+
+    ZeroMemory(&ofn, sizeof(OPENFILENAME));
+
+    ofn.lStructSize = sizeof(OPENFILENAME);
+    ofn.hwndOwner = hWnd;
+    ofn.lpstrFile = (LPWSTR)fileName;
+    ofn.lpstrFile[0] = '\0';
+    ofn.nMaxFile = 100;
+    ofn.lpstrFilter = (LPWSTR)L"Text Documents (*.txt)\0*.txt*\0";
+    ofn.nFilterIndex = 1;
+
+    GetSaveFileName(&ofn);
+
+    MessageBox(
+        hWnd,
+        ofn.lpstrFile,
+        (LPCWSTR)L"save",
+        MB_OK
+    );
+
+
+    //saveText();
+}
+
+void hanleSaveAsText(HWND hWnd) {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -30,8 +79,8 @@ void handleEdit(HWND hWnd, LPARAM lParam) {
     hwndEdit = CreateWindowEx(
         0, L"EDIT",   // predefined class 
         NULL,         // no window title 
-        WS_CHILD | WS_VISIBLE | WS_VSCROLL |
-        ES_LEFT | ES_MULTILINE | ES_AUTOVSCROLL,
+        WS_CHILD | WS_VISIBLE | WS_VSCROLL | WS_HSCROLL |
+        ES_LEFT | ES_MULTILINE | ES_AUTOHSCROLL | ES_AUTOVSCROLL,
         0, 0, 0, 0,   // set size in WM_SIZE message 
         hWnd,         // parent window 
         NULL,   // edit control ID 
@@ -50,6 +99,14 @@ void handleEdit(HWND hWnd, LPARAM lParam) {
 }
 
 
+
+void handleReadFile(LPWSTR path) {
+    //fstream file;
+
+    //converting (LPWSTR) to (string).
+   
+ 
+}
 
 
 
@@ -70,7 +127,7 @@ void handleOpenMenu(HWND hWnd) {
     ofn.lpstrFile = (LPWSTR)fileName;
     ofn.lpstrFile[0] = '\0';
     ofn.nMaxFile = 100;
-    ofn.lpstrFilter = (LPWSTR)L"Text Files\0*.txt*\0";
+    ofn.lpstrFilter = (LPWSTR)L"Text Documents (*.txt)\0*.txt*\0";
     ofn.nFilterIndex = 1;
 
     GetOpenFileName(&ofn);
@@ -81,6 +138,9 @@ void handleOpenMenu(HWND hWnd) {
         (LPCWSTR)L"Path",
         MB_OK
     );
+
+    handleReadFile(ofn.lpstrFile);
+
 
 }
 
@@ -114,7 +174,9 @@ void handleMainMenu(HWND hWnd, HMENU hMenuMain) {
     AppendMenu(hSubFileMenu, MF_STRING, NULL, (LPCWSTR)L"Sub menu   F5");
 
     AppendMenu(hFileMenu, MF_STRING, ID_NEW_MENU, (LPCWSTR)L"New");
-    AppendMenu(hFileMenu, MF_STRING, ID_OPEN_MENU, (LPCWSTR)L"Open");
+    AppendMenu(hFileMenu, MF_STRING, ID_OPEN_MENU, (LPCWSTR)L"Open...");
+    AppendMenu(hFileMenu, MF_STRING, ID_SAVE_MENU, (LPCWSTR)L"Save");
+    AppendMenu(hFileMenu, MF_STRING, ID_SAVEAS_MENU, (LPCWSTR)L"Save As...");
     AppendMenu(hFileMenu, MF_POPUP, (UINT_PTR)hSubFileMenu, (LPCWSTR)L"Tools");
     AppendMenu(hFileMenu, MF_SEPARATOR, NULL, NULL);
     AppendMenu(hFileMenu, MF_STRING, ID_EXIT_MENU, (LPCWSTR)L"Exit");

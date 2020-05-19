@@ -176,6 +176,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         case ID_NEW_MENU:
             hanleNewWidow();
             break;
+        case ID_SAVE_MENU:
+            hanleSaveText(hWnd);
+            break;
+        case ID_SAVEAS_MENU:
+            hanleSaveAsText(hWnd);
+            break;
         default:
             break;
         }
