@@ -10,6 +10,16 @@ using namespace std;
 
 #define MAINWIN_WIDTH 500
 #define MAINWIN_HEIGHT 400
+HINSTANCE hInst;
+int nCmdShowGlobal;
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM); //declaration of the window procedures method.
+// The main window class name.
+static TCHAR szWindowClass[] = _T("DesktopApp");
+
+// The string that appears in the application's title bar.
+static TCHAR szTitle[] = _T("Windows Desktop Guided Tour Application");
+
+
 
 #include"windowStuff.h"
 
@@ -26,16 +36,12 @@ HMENU hMenuMain;
 
 // Global variables
 
-// The main window class name.
-static TCHAR szWindowClass[] = _T("DesktopApp");
 
-// The string that appears in the application's title bar.
-static TCHAR szTitle[] = _T("Windows Desktop Guided Tour Application");
 
-HINSTANCE hInst;
+
 
 // Forward declarations of functions included in this code module:
-LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM); //declaration of the window procedures method.
+
 
 int CALLBACK WinMain(
     _In_ HINSTANCE hInstance,
@@ -72,6 +78,9 @@ int CALLBACK WinMain(
 
     // Store instance handle in our global variable
     hInst = hInstance;
+
+    //store ncmdshow in out gloabal vairalble
+    nCmdShowGlobal = nCmdShow;
 
     // The parameters to CreateWindow explained:
     // szWindowClass: the name of the application
