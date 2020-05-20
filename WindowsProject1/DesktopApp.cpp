@@ -16,9 +16,6 @@ using namespace std;
 
 
 
-
-
-
 #define processCallCount 0
 
 
@@ -181,6 +178,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             break;
         case ID_SAVEAS_MENU:
             hanleSaveAsText(hWnd);
+            break;
+        case ID_SETTINGS_MENU:
+            handleSettingsWindow(hWnd);
             break;
         default:
             break;

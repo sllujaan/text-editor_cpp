@@ -3,7 +3,7 @@
 #include<fstream>
 #include<string>
 
-#define MAX_PATH 100
+//#define MAX_PATH 100
 
 struct File {
 

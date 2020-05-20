@@ -1,8 +1,10 @@
 #pragma once
 
+
 #include"mySample.h"
 #include <ShObjIdl.h>
-#include"File.h";
+#include"File.h"
+#include"settingsWindow.h"
 
 
 #define BUTTON_ID_OK 0
@@ -14,6 +16,7 @@
 #define ID_NEW_MENU 0x111
 #define ID_SAVEAS_MENU 0x992
 #define ID_SAVE_MENU 0x998
+#define ID_SETTINGS_MENU 0x000
 
 HMENU hMenu;
 static HWND hwndEdit;
@@ -21,6 +24,7 @@ static HWND hwndEdit;
 
 
 void hanleSaveText(HWND hWnd) {
+    
     OPENFILENAME ofn;
 
     LPWSTR fileName[100];
@@ -201,7 +205,7 @@ void handleMainMenu(HWND hWnd, HMENU hMenuMain) {
     AppendMenu(hMenuMain, MF_POPUP, (UINT_PTR)hFileMenu, (LPCWSTR)L"File");
     AppendMenu(hMenuMain, MF_POPUP, (UINT_PTR)hHelpMenu, (LPCWSTR)L"Help");
     AppendMenu(hHelpMenu, MF_POPUP, ID_ABOUT_MENU, (LPCWSTR)L"About");
-    AppendMenu(hSubFileMenu, MF_STRING, NULL, (LPCWSTR)L"Sub menu   F5");
+    AppendMenu(hSubFileMenu, MF_STRING, ID_SETTINGS_MENU, (LPCWSTR)L"Settings...");
 
     AppendMenu(hFileMenu, MF_STRING, ID_NEW_MENU, (LPCWSTR)L"New");
     AppendMenu(hFileMenu, MF_STRING, ID_OPEN_MENU, (LPCWSTR)L"Open...");
