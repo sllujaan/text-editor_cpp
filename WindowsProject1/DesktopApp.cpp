@@ -189,7 +189,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             handleOpenMenu(hWnd);
             break;
         case ID_NEW_MENU:
-            hanleNewWidow();
+            hanleNewWidow(hWnd);
             break;
         case ID_SAVE_MENU:
             hanleSaveText(hWnd);

@@ -75,8 +75,39 @@ void hanleSaveAsText(HWND hWnd) {
 
 
 
-void hanleNewWidow() {
+void hanleNewWidow(HWND hWnd) {
+    int editLength = GetWindowTextLength(hwndEdit);
 
+    //converting integer to wide string....
+    wstring wstr = to_wstring(editLength);
+
+    //converting wstring to wchar_t*...
+    const wchar_t* wchar_ptr = wstr.c_str();
+
+
+    //get main window title--
+    const int size = GetWindowTextLength(hWnd);
+    //wchar_t* data = new wchar_t[size + 1];
+    LPCWSTR data = new WCHAR[size + 1];
+
+    GetWindowText(hWnd, (LPWSTR)data, size+1);
+
+    if (wcscmp((LPWSTR)data, (LPWSTR)L"Untitled - Text-Editor") == 0) {
+
+        if (editLength > 0) {
+            MessageBox(
+                hWnd,
+                (LPCWSTR)L"Do you want to save changes to Untitled?",
+                (LPCWSTR)L"Text Editor",
+                BS_PUSHBUTTON
+            );
+            return;
+        }
+
+        
+    }
+
+    return;
 }
 
 
