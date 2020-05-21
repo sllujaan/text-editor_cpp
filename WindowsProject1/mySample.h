@@ -82,7 +82,11 @@ BOOL CenterWindow(HWND hwndWindow)
 }
 
 
-
+//cetering window
+void handleCenterWindow(HWND hWnd) {
+    int centerd = CenterWindow(hWnd);
+    if (!centerd) DisplayWindowCannotMoveMessageBox(hWnd);
+}
 
 
 BOOL CenterChildWindowRelativeToParent(HWND hwndWindow)

@@ -17,7 +17,7 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM); //declaration of the windo
 static TCHAR szWindowClass[] = _T("DesktopApp");
 
 // The string that appears in the application's title bar.
-static TCHAR szTitle[] = _T("Windows Desktop Guided Tour Application");
+static TCHAR szTitle[] = _T("Untitled - Text-Editor");
 
 
 
@@ -59,7 +59,16 @@ int CALLBACK WinMain(
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = hInstance;
-    wcex.hIcon = LoadIcon(hInstance, IDI_APPLICATION);
+    wcex.hIcon = (HICON)LoadImage( // returns a HANDLE so we have to cast to HICON
+        NULL,             // hInstance must be NULL when loading from a file
+        L"editor-png-open-2000.ico",   // the icon file name
+        IMAGE_ICON,       // specifies that the file is an icon
+        0,                // width of the image (we'll specify default later on)
+        0,                // height of the image
+        LR_LOADFROMFILE |  // we want to load a file (as opposed to a resource)
+        LR_DEFAULTSIZE |   // default metrics based on the type (IMAGE_ICON, 32x32)
+        LR_SHARED         // let the system release the handle when it's no longer used
+    );
     wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
     wcex.lpszMenuName = NULL;
@@ -191,6 +200,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         case ID_SETTINGS_MENU:
             handleSettingsWindow(hWnd);
             break;
+        case ID_SETTINGS_DIALOG_MENU:
+            handleSettingsDialogBoxWindow(hWnd);
+            break;
+            
         default:
             break;
         }

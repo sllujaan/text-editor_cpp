@@ -17,6 +17,8 @@
 #define ID_SAVEAS_MENU 0x992
 #define ID_SAVE_MENU 0x998
 #define ID_SETTINGS_MENU 0x000
+#define ID_SETTINGS_DIALOG_MENU 0x123
+
 
 HMENU hMenu;
 static HWND hwndEdit;
@@ -105,7 +107,7 @@ void handleEdit(HWND hWnd, LPARAM lParam) {
 
 
 
-void handleReadFile(char* path) {
+void handleReadFile(HWND hWnd, char* path) {
     /*
     MessageBox(
         NULL,
@@ -143,7 +145,7 @@ void handleReadFile(char* path) {
         MB_OK
     );
 
-    
+    SetWindowText(hWnd, (LPCWSTR)path);
 
 }
 
@@ -173,7 +175,7 @@ void handleOpenMenu(HWND hWnd) {
 
     
 
-    handleReadFile((char*)ofn.lpstrFile);
+    handleReadFile(hWnd, (char*)ofn.lpstrFile);
 
 
 }
@@ -186,9 +188,9 @@ void handleAbout(HWND hWnd) {
     
     int msgboxID = MessageBox(
         hWnd,
-        (LPCWSTR)L"Developed by M.Salman Altaf",
-        (LPCWSTR)L"About",
-        MB_OK
+        (LPCWSTR)L"Developed by M.Salman Altaf.",
+        (LPCWSTR)L"About Us",
+        MB_ICONINFORMATION
     );
     
 }
@@ -206,6 +208,7 @@ void handleMainMenu(HWND hWnd, HMENU hMenuMain) {
     AppendMenu(hMenuMain, MF_POPUP, (UINT_PTR)hHelpMenu, (LPCWSTR)L"Help");
     AppendMenu(hHelpMenu, MF_POPUP, ID_ABOUT_MENU, (LPCWSTR)L"About");
     AppendMenu(hSubFileMenu, MF_STRING, ID_SETTINGS_MENU, (LPCWSTR)L"Settings...");
+    AppendMenu(hSubFileMenu, MF_STRING, ID_SETTINGS_DIALOG_MENU, (LPCWSTR)L"Settings Dialog box...");
 
     AppendMenu(hFileMenu, MF_STRING, ID_NEW_MENU, (LPCWSTR)L"New");
     AppendMenu(hFileMenu, MF_STRING, ID_OPEN_MENU, (LPCWSTR)L"Open...");
@@ -264,41 +267,6 @@ void handleNewWidow(HWND hWnd) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//cetering window
-void handleCenterWindow(HWND hWnd) {
-    int centerd = CenterWindow(hWnd);
-    if (!centerd) DisplayWindowCannotMoveMessageBox(hWnd);
-}
 
 
 void handleButton(HWND hWnd) {
