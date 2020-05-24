@@ -3,8 +3,14 @@
 
 #include"mySample.h"
 #include <ShObjIdl.h>
-#include"File.h"
+#include<stdio.h>
 #include"settingsWindow.h"
+//#include <string>
+#include"File.h"
+#include"debug.h"
+
+
+#define PACKVERSION(major,minor) MAKELONG(minor,major)
 
 
 #define BUTTON_ID_OK 0
@@ -101,11 +107,11 @@ void hanleNewWidow(HWND hWnd) {
                 (LPCWSTR)L"Text Editor",
                 BS_PUSHBUTTON
             );
-            return;
+            //return;
         }
-
         
     }
+    
 
     return;
 }
@@ -158,6 +164,9 @@ void handleReadFile(HWND hWnd, char* path) {
     */
     
 
+    
+    
+
     File file;
     string content = file.readFile((string)path);
 
@@ -177,6 +186,8 @@ void handleReadFile(HWND hWnd, char* path) {
     );
 
     SetWindowText(hWnd, (LPCWSTR)path);
+
+    displayDialog("first", "second str");
 
 }
 
@@ -378,4 +389,20 @@ int getClientHeight(HWND hWnd) {
 
 MAINWIN_WIDTH - 17, MAINWIN_HEIGHT - 59
 
+*/
+
+
+
+/*
+    FILE* file;
+    file = fopen(path, "rb");
+    fseek(file, 0, SEEK_END);
+    int size = ftell(file);
+    rewind(file);
+
+    LPCWSTR data = new WCHAR[size + 1];
+    fread((void*)data, size, 1, file);
+    //data[size + 1] = '\0';
+ 
+ 
 */

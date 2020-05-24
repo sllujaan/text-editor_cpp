@@ -55,12 +55,16 @@ struct File {
 
 	string readFile(string fileName) {
 
+
 		const char* fileNamePtr = fileName.c_str();
+		//int pathLength = strlen(fileNamePtr);
+
+		
 	
 		
 
 		fstream file;
-		file.open("C:/Users/Subhan/Desktop/temp.txt", ios_base::in);
+		file.open(fileNamePtr, ios_base::in);
 
 		string msg = "No such file exists named " + (string)fileName;
 		if (!file) { cout << msg << endl;return "ERROR::NOT FOUND."; }

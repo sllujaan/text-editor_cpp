@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="debug.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="mySample.h" />
