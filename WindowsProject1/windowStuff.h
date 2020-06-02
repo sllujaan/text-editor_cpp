@@ -281,6 +281,7 @@ void handleOpenMenu(HWND hWnd) {
     ofn.lpstrFilter = (LPWSTR)L"Text Documents (*.txt)\0*.txt*\0";
     ofn.nFilterIndex = 1;
     ofn.lpstrDefExt = L"txt";
+    ofn.Flags = OFN_FILEMUSTEXIST;
 
     
     BOOL OPEN = GetOpenFileName(&ofn);

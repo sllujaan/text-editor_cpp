@@ -92,7 +92,7 @@ struct File {
 		string lineText;
 		string wholeText;
 
-		while (getline(file, lineText)) { wholeText += lineText + '\n'; }
+		while (getline(file, lineText)) { wholeText += lineText + "\r\n"; }
 
 		//cout << wholeText << endl;
 
