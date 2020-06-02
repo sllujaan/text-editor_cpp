@@ -47,7 +47,8 @@ void hanleSaveText(HWND hWnd) {
     ofn.lpstrFilter = (LPWSTR)L"Text Documents (*.txt)\0*.txt*\0";
     ofn.nFilterIndex = 1;
 
-    GetSaveFileName(&ofn);
+    BOOL OPEN = GetSaveFileName(&ofn);
+    if (!OPEN) return;
 
     MessageBox(
         hWnd,
@@ -75,7 +76,8 @@ void hanleSaveAsText(HWND hWnd) {
     ofn.lpstrFilter = (LPWSTR)L"Text Documents (*.txt)\0*.txt*\0";
     ofn.nFilterIndex = 1;
 
-    GetSaveFileName(&ofn);
+    BOOL OPEN = GetSaveFileName(&ofn);
+    if (!OPEN) return;
 
 
     //get edit window length--
@@ -279,10 +281,10 @@ void handleOpenMenu(HWND hWnd) {
     ofn.lpstrFilter = (LPWSTR)L"Text Documents (*.txt)\0*.txt*\0";
     ofn.nFilterIndex = 1;
 
-    GetOpenFileName(&ofn);
-
     
-
+    BOOL OPEN = GetOpenFileName(&ofn);
+    if (!OPEN) return;
+    
     handleReadFile_LPCWSTR(hWnd, (LPCWSTR)fileName);
     //handleReadFile(hWnd, (char*)ofn.lpstrFile);
 

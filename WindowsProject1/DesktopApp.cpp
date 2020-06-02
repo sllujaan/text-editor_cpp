@@ -213,16 +213,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
         break;
 
-    case WM_KEYDOWN:
-        switch (wParam)
-        {
-        case VK_RETURN:
-            OutputDebugStringW(L"VK_RETURN:");
-
-        default:
-            OutputDebugStringW(L"default");
-            break;
-        }
+    case WM_INITDIALOG:
+        OutputDebugStringW((LPCWSTR)L"WM_INITDIALOG called....");
+        break;
 
     case WM_SETFOCUS:
         SetFocus(hwndEdit);
