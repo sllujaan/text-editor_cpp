@@ -280,6 +280,7 @@ void handleOpenMenu(HWND hWnd) {
     ofn.nMaxFile = 100;
     ofn.lpstrFilter = (LPWSTR)L"Text Documents (*.txt)\0*.txt*\0";
     ofn.nFilterIndex = 1;
+    ofn.lpstrDefExt = L"txt";
 
     
     BOOL OPEN = GetOpenFileName(&ofn);
