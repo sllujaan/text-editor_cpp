@@ -61,6 +61,42 @@ void hanleSaveText(HWND hWnd) {
 }
 
 void hanleSaveAsText(HWND hWnd) {
+    OPENFILENAME ofn;
+
+    LPWSTR fileName[100];
+
+    ZeroMemory(&ofn, sizeof(OPENFILENAME));
+
+    ofn.lStructSize = sizeof(OPENFILENAME);
+    ofn.hwndOwner = hWnd;
+    ofn.lpstrFile = (LPWSTR)fileName;
+    ofn.lpstrFile[0] = '\0';
+    ofn.nMaxFile = 100;
+    ofn.lpstrFilter = (LPWSTR)L"Text Documents (*.txt)\0*.txt*\0";
+    ofn.nFilterIndex = 1;
+
+    GetSaveFileName(&ofn);
+
+
+    //get edit window length--
+    const int size = GetWindowTextLength(hwndEdit);
+    //wchar_t* data = new wchar_t[size + 1];
+    LPCWSTR text = new WCHAR[size + 1];
+
+    GetWindowText(hwndEdit, (LPWSTR)text, size + 1);
+    
+
+    File file;
+    int res = file.writeFile_LPCWSTR(text, (LPWSTR)ofn.lpstrFile);
+    
+    if (!res) {
+        MessageBox(
+            hWnd,
+            (LPCWSTR)L"Error while writing to file.",
+            (LPCWSTR)L"save",
+            MB_ICONERROR
+        );
+    }
 
 }
 
@@ -178,6 +214,7 @@ void handleReadFile(HWND hWnd, char* path) {
 
     SetWindowText(hwndEdit, wstr_ptr);
 
+
     MessageBox(
         NULL,
         (LPCWSTR)path,
@@ -191,6 +228,35 @@ void handleReadFile(HWND hWnd, char* path) {
 
 }
 
+
+
+void handleReadFile_LPCWSTR(HWND hWnd, LPCWSTR path) {
+
+    File file;
+
+    string data = file.readFile_LPCWSTR(path);
+
+    //converting string to wstring
+    wstring wstr = wstring(data.begin(), data.end());
+    //converting wstring to wchar_t*
+    LPCWSTR lpString = wstr.c_str();
+
+
+    
+
+    MessageBox(
+        NULL,
+        (LPCWSTR)lpString,
+        (LPCWSTR)L"Path .......---",
+        MB_OK
+    );
+
+    SetWindowText(hWnd, (LPCWSTR)path);
+    
+    SetWindowTextW(hwndEdit, (LPCWSTR)lpString);
+    //SetWindowText(hwndEdit, (LPCWSTR)lpString);
+    
+}
 
 
 
@@ -217,7 +283,8 @@ void handleOpenMenu(HWND hWnd) {
 
     
 
-    handleReadFile(hWnd, (char*)ofn.lpstrFile);
+    handleReadFile_LPCWSTR(hWnd, (LPCWSTR)fileName);
+    //handleReadFile(hWnd, (char*)ofn.lpstrFile);
 
 
 }

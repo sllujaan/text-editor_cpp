@@ -159,6 +159,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     PAINTSTRUCT ps;
     HDC hdc;
     TCHAR greeting[] = _T("Hello, Windows desktop!");
+    wchar_t msg[50];
 
 
     switch (message)
@@ -208,9 +209,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             break;
         }
 
-        OutputDebugStringW((LPCWSTR)L"command called.");
+        //OutputDebugStringW((LPCWSTR)L"command called.");
 
         break;
+
+    case WM_KEYDOWN:
+        switch (wParam)
+        {
+        case VK_RETURN:
+            OutputDebugStringW(L"VK_RETURN:");
+
+        default:
+            OutputDebugStringW(L"default");
+            break;
+        }
 
     case WM_SETFOCUS:
         SetFocus(hwndEdit);

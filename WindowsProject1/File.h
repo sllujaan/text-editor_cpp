@@ -1,17 +1,18 @@
 #pragma once
 
+
 #include<fstream>
 #include<string>
-
-//#define MAX_PATH 100
+#include<comdef.h>
+using namespace std;
 
 struct File {
-
 
 	fstream file;
 
 	bool Close() {
 		file.close();
+		return true;
 	}
 
 	bool isFile(string fileName) {
@@ -24,46 +25,43 @@ struct File {
 		return true;
 	}
 
-	bool createFile(string fileName) {
-		//converting string to char pointer.
-		const char* fileNamePtr = fileName.c_str();
 
-		file.open(fileNamePtr, ios_base::out);
+	int writeFile_LPCWSTR(LPCWSTR text, LPCWSTR path) {
 
-		if (!file) return false;
-
-		return true;
-	}
+		//LPCWSTR is cosnt wchar_t*
 
 
-	bool writeFile(string fileName, string text) {
-
-		const char* fileNamePtr = fileName.c_str();
+		//converting WCHAR* to CHAR*
+		_bstr_t b(path);
+		const char* fileNamePtr = b;
 
 		fstream new_file;
+
 		new_file.open(fileNamePtr, ios_base::out);
 
-		if (!new_file) { cout << "file couldn't open." << endl;return ""; }
-		string msg = (string)"New file created named " + fileName;
-		cout << msg << endl;
+		if (!new_file) return 0;
 
-		new_file << "this text has been generated from c++ programming language.\nAnd this is new the new line.\n\tThis is new line and tab space." << endl;
+		//new_file << "this text has been generated from c++ programming language.\nAnd this is new the new line.\n\tThis is new line and tab space." << endl;
+		
+		size_t length = wcslen(text);
+
+		for (size_t i = 0; i < length; i++)
+		{
+			new_file << (char)text[i];
+		}
+
 		new_file.close();
 
-		return "";
+		return 1;
 	}
+
+
+
 
 	string readFile(string fileName) {
 
-
 		const char* fileNamePtr = fileName.c_str();
-		//int pathLength = strlen(fileNamePtr);
 
-		
-	
-		
-
-		fstream file;
 		file.open(fileNamePtr, ios_base::in);
 
 		string msg = "No such file exists named " + (string)fileName;
@@ -77,71 +75,60 @@ struct File {
 		return wholeText;
 	}
 
+	string readFile_LPCWSTR(LPCWSTR fileName) {
+
+		//LPCWSTR is cosnt wchar_t*
+
+
+		//converting WCHAR* to CHAR*
+		_bstr_t b(fileName);
+		const char* fileNamePtr = b;
+
+		file.open(fileNamePtr, ios_base::in);
+
+		string msg = "No such file exists named " + (string)fileNamePtr;
+		if (!file) { cout << msg << endl;return "ERROR::NOT FOUND."; }
+
+		string lineText;
+		string wholeText;
+
+		while (getline(file, lineText)) { wholeText += lineText + '\n'; }
+
+		//cout << wholeText << endl;
+
+		return wholeText;
+
+		/*
+
+		wstring wstr = wstring(wholeText.begin(), wholeText.end());
+
+		cout << (char)wstr[0] << endl;
+		cout << (char)wstr[1] << endl;
+		cout << (char)wstr[2] << endl;
+		cout << (char)wstr[3] << endl;
+
+
+		cout << size(wstr) << endl;
+
+		size_t length = size(wstr);
+
+		WCHAR* lpString = new WCHAR[4];
+
+		lpString[0] = (WCHAR)"M";
+		lpString[1] = (WCHAR)"i";
+		lpString[2] = (WCHAR)"k";
+		lpString[3] = (WCHAR)"e";
+
+		//lpString = wstr.c_str();
+		//LPCWSTR lpString = wstr.c_str();
+
+		//cout << wcslen(lpString) << endl;
+		//cout << (char)lpString[0] << endl;
+
+		return lpString;
+		*/
+
+	}
+
 
 };
-
-
-/*
-
-int main(int argc, char* argv[]) {
-
-	//createAndWriteFile((char*)"sample.txt");
-	//cout<<readFile("sample.txt")<<endl;
-
-
-	/*
-	char *ptr = (char*)"abc";
-	cout<<(&ptr)<<endl;
-	int address = 0x22fe48;
-	cout<<address<<endl;
-	*/
-
-/*
-
-	File file;
-
-
-
-	///if(file.isFile("sample.txt")) cout<<"true"<<endl;
-	//else cout<<"false"<<endl;
-
-	cout << file.readFile("C:/Users/Subhan/OneDrive/C++/fileHandling/sample.txt") << endl;
-
-	file.Close();
-
-
-
-	//system("sample.txt");
-
-	return 0;
-}
-
-
-
-
-*/
-
-
-
-
-
-
-/*
-string writeFile(string fileName, string text) {
-
-	const char* fileNamePtr = fileName.c_str();
-
-	fstream new_file;
-	new_file.open(fileNamePtr, ios_base::out);
-
-	if(!new_file) {cout<<"file couldn't open."<<endl;return "";}
-	string msg = (string)"New file created named "+fileName;
-	cout<<msg<<endl;
-
-	new_file<<"this text has been generated from c++ programming language.\nAnd this is new the new line.\n\tThis is new line and tab space."<<endl;
-	new_file.close();
-
-	return "";
-}
-
-*/
